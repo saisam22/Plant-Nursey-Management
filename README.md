@@ -6,8 +6,6 @@ A RESTful API for managing a plant nursery, built with Node.js, Express, and Mon
 
 - Plants Management (CRUD operations)
 - Orders Management
-- User Authentication (JWT)
-- Admin Authorization
 - Error Handling
 - Input Validation
 
@@ -16,9 +14,6 @@ A RESTful API for managing a plant nursery, built with Node.js, Express, and Mon
 - Node.js
 - Express.js
 - MongoDB (with Mongoose)
-- JWT for authentication
-- bcryptjs for password hashing
-- cors for cross-origin resource sharing
 
 ## Prerequisites
 
@@ -37,8 +32,6 @@ A RESTful API for managing a plant nursery, built with Node.js, Express, and Mon
    ```
    MONGO_URI=mongodb://localhost:27017/plant-nursery
    PORT=5000
-   JWT_SECRET=your_jwt_secret_key_here
-   JWT_EXPIRE=30d
    ```
 4. Start the server:
    ```bash
@@ -78,5 +71,3 @@ Authorization: Bearer <your_token_here>
 
 - `PORT`: Server port number (default: 5000)
 - `MONGO_URI`: MongoDB connection string
-- `JWT_SECRET`: Secret key for JWT
-- `JWT_EXPIRE`: JWT expiration time
