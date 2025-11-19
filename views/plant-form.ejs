@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3><%= plant ? 'Edit Plant' : 'Add New Plant' %></h3>
+            </div>
+            <div class="card-body">
+                <form action="<%= plant ? `/plants/${plant._id}?_method=PUT` : '/plants' %>" method="POST">
+                    <% if (locals.error) { %>
+                        <div class="alert alert-danger"><%= error %></div>
+                    <% } %>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Plant Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%= plant ? plant.name : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="">Select Category</option>
+                            <% ['Indoor', 'Outdoor', 'Succulent', 'Flowering', 'Herb'].forEach(cat => { %>
+                                <option value="<%= cat %>" <%= plant && plant.category === cat ? 'selected' : '' %>><%= cat %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price ($)</label>
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" value="<%= plant ? plant.price : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity in Stock</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="<%= plant ? plant.quantity : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required><%= plant ? plant.description : '' %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image URL</label>
+                        <input type="url" class="form-control" id="image" name="image" 
+                            value="<%= plant ? plant.image : '' %>" 
+                            placeholder="https://example.com/image.jpg">
+                        <small class="text-muted">Enter a valid image URL (ending in .jpg, .png, .gif, etc.)</small>
+                        <% if (plant && plant.image) { %>
+                            <div class="mt-2">
+                                <img src="<%= plant.image %>" alt="Current image" class="img-thumbnail" style="height: 100px;">
+                            </div>
+                        <% } %>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><%= plant ? 'Update Plant' : 'Add Plant' %></button>
+                    <a href="/plants" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

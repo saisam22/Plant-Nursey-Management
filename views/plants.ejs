@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+    <!-- DEBUG: Visible server-side data dump (temporary) -->
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Available Plants</h2>
+        <a href="/plants/new" class="btn btn-success btn-lg">
+            <i class="fas fa-plus"></i> Add New Plant
+        </a>
+    </div>
+
+<div class="row">
+    <% plants.forEach(plant => { %>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+               
+                <img src=<%= plant.image %> class="card-img-top" alt="<%= plant.name %>" style="height: 200px; object-fit: cover;" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/800x600?text=No+Image'">
+                <div class="card-body">
+                    <h5 class="card-title"><%= plant.name %></h5>
+                    <p class="card-text"><%= plant.description %></p>
+                    <p class="card-text">
+                        <span class="badge bg-info"><%= plant.category %></span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Price:</strong> $<%= plant.price.toFixed(2) %>
+                        <br>
+                        <strong>In Stock:</strong> <%= plant.quantity %> units
+                    </p>
+                    <div class="mb-3">
+                        <input type="number" class="form-control" name="quantity" min="1" max="<%= plant.quantity %>" value="1" disabled>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-primary" disabled>Order Now</button>
+                        <div>
+                            <a href="/plants/edit/<%= plant._id %>" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <button type="button" class="btn btn-danger" onclick="deletePlant('<%= plant._id %>')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+
+<%- include('partials/footer') %>
